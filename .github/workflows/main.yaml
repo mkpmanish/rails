@@ -6,40 +6,14 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest                    # similar to "image" in GitLab
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.6'
-
-      - run: |
-          pip3 install --upgrade virtualenv
-          virtualenv env
-          source env/bin/activate
-          pip install -r requirements.txt
-          python manage.py check
-
-  test:
+  build:      
     runs-on: ubuntu-latest
-    needs: build
     steps:
-      - uses: actions/checkout@v2
+      - run: echo "This is an build steps"
+      - run: exit 1
+        continue-on-error: true 
 
-      - name: Setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.6'
-
-      - run: |
-          pip3 install --upgrade virtualenv
-          virtualenv env
-          source env/bin/activate
-          pip install -r requirements.txt
-          python manage.py test taskManager
 
   integration:
     runs-on: ubuntu-latest
